@@ -118,8 +118,9 @@ public class HomeServlet extends HttpServlet implements Routable{
             System.out.println(user);
             req.getSession().setAttribute("editing_user", user);
             resp.sendRedirect("/edit");
-//            RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/edit.jsp");
-//            rd.forward(req,resp);
+        }else if(req.getParameter("logout")!= null){
+            req.getSession().invalidate();
+            resp.sendRedirect("/login");
         }
 
     }

@@ -4,7 +4,9 @@
 <html>
 <body>
 <h2>Welcome, ${username}</h2> <br/>
-<%--<a href="/logout"> Logout </a><br/>--%>
+<form method="post">
+    <input type="submit" name="logout" value="Log out"/>
+</form>
 <p>${adding_error}</p>
 <form method="post">
     <input type="text" name="adding_username" placeholder="username" required /><br>
