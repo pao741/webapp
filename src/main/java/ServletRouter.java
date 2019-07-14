@@ -23,6 +23,7 @@ public class ServletRouter {
     static {
         routables.add(HomeServlet.class);
         routables.add(LoginServlet.class);
+        routables.add(EditServlet.class);
     }
 
     private SecurityService securityService;

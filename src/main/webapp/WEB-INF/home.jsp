@@ -12,7 +12,6 @@
     <input type="password" name="confirm_password" placeholder="confirm password" required>
     <br>
     <input type="submit" name="add_user" value="Add user" required/>
-
 </form>
 <p>${removing_error}</p>
     <table border="2">
@@ -20,23 +19,21 @@
         <c:forEach items="${userList}" var="usr">
             <tbody style="vertical-align: center">
             <tr>
-                <td >
+                <td>
                         ${usr}
                     <td>
                             <form method="post">
+                                <input type="hidden" name="user_to_use" value="${usr}"/>
                             <c:choose>
                                 <c:when test="${usr!=username}">
-                                    <input type="hidden" name="user_to_remove" value="${usr}"/>
                                     <input type="submit" name="removing_user" value="remove" onclick="{return confirm('Are you sure you want to remove this user?')}"/>
                                 </c:when>
                                 <c:otherwise> Removing not allowed here </c:otherwise>
                             </c:choose>
+                                <input type="submit" name="do_edit" value="edit" />
                             </form>
                     </td>
                 </td>
-<%--                <td>--%>
-
-<%--                </td>--%>
             </tr>
             </tbody>
         </c:forEach>
