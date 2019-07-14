@@ -58,12 +58,15 @@ public class EditServlet extends HttpServlet implements Routable{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = (String)req.getSession().getAttribute("editing_user");
-//        System.out.println(req.getParameter("edit_form"));
         if (req.getParameter("edit_username")!= null){
             String newUsername = req.getParameter("new_username");
             try {
-                databaseService.updateUsername(newUsername,username);
-                username = newUsername;
+                if (databaseService.containUser(newUsername)){
+                    req.setAttribute("error","User already exist");
+                }else {
+                    databaseService.updateUsername(newUsername, username);
+                    username = newUsername;
+                }
                 req.getSession().setAttribute("editing_user",username);
             } catch (SQLException e) {
                 e.printStackTrace();

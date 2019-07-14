@@ -18,6 +18,7 @@
 <h2> Editing last name: ${last_name}</h2><br>
 <a href="/"> Back</a>
 <form method="post">
+    <p>${error}</p>
     <input type="hidden" name="edit_form" value="change_username"/>
     <input type="text" name="new_username"  placeholder="New username" required />
     <input type="submit" name="edit_username" value="edit" required/>
