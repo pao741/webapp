@@ -55,8 +55,6 @@ public class DatabaseService {
 //            Integer id = resultSet.getInt(TestTableColumns.id.toString());
             String username = resultSet.getString(user_table.username.toString());
             String password = resultSet.getString(user_table.password.toString());
-            System.out.println("username: " + username);
-            System.out.println("password: " + password);
         }
     }
 
@@ -79,10 +77,8 @@ public class DatabaseService {
         String hashed = BCrypt.hashpw(password,BCrypt.gensalt());
         if (!containUser(username)){
             statement.execute("insert into user_table(username, password) values ( '" + username + "', '" + hashed + "')");
-            System.out.println("user:" + username + " had been added");
             return true;
         }
-        System.out.println("user:" + username + " is already existed");
         return false;
     }
     public boolean containUser(String username) throws  SQLException{

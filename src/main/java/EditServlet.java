@@ -39,7 +39,6 @@ public class EditServlet extends HttpServlet implements Routable{
         if(authorized){
             String username = (String)req.getSession().getAttribute("editing_user");
             try {
-                System.out.println("should do once");
                 User user = databaseService.getUser(username);
                 req.setAttribute("username", user.getUsername());
                 req.setAttribute("first_name", user.getFirstName());

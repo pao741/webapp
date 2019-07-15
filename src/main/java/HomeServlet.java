@@ -36,7 +36,6 @@ public class HomeServlet extends HttpServlet implements Routable{
 
     public void refreshTable(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         ArrayList<String> userList = databaseService.getAllUser();
-//        System.out.println("user list " + userList);
         request.setAttribute("userList", userList);
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/home.jsp");
         rd.include(request, response);
@@ -88,8 +87,6 @@ public class HomeServlet extends HttpServlet implements Routable{
             String newUsername = req.getParameter("adding_username");
             String newPassword = req.getParameter("adding_password");
             String confirmPassword = req.getParameter("confirm_password");
-            System.out.println(newPassword);
-            System.out.println(confirmPassword);
             if (newPassword.compareTo(confirmPassword) == 0) {
                 try {
                     databaseService.createUser(newUsername, newPassword);
@@ -124,7 +121,6 @@ public class HomeServlet extends HttpServlet implements Routable{
             }
         }else if(req.getParameter("do_edit")!=null){
             String user = req.getParameter("user_to_use");
-            System.out.println(user);
             req.getSession().setAttribute("editing_user", user);
             resp.sendRedirect("/edit");
         }else if(req.getParameter("logout")!= null){
