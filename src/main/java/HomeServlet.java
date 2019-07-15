@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import models.User;
 import org.mindrot.jbcrypt.BCrypt;
 import service.DatabaseService;
 import service.SecurityService;
@@ -62,7 +63,15 @@ public class HomeServlet extends HttpServlet implements Routable{
         if (authorized) {
             // do MVC in here
             String username = (String) request.getSession().getAttribute("username");
-            request.setAttribute("username", username);
+            try {
+                User user = databaseService.getUser(username);
+                request.setAttribute("user", user);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+//            request.setAttribute("username", username);
             try {
                 refreshTable(request,response);
             } catch (SQLException e) {

@@ -3,7 +3,10 @@
 
 <html>
 <body>
-<h2>Welcome, ${username}</h2> <br/>
+<h2>Welcome, ${user.getUsername()}</h2>
+<h2>Your first name : ${user.getFirstName()}</h2>
+<h2>Your last name : ${user.getLastName()}</h2>
+<br/>
 <form method="post">
     <input type="submit" name="logout" value="Log out"/>
 </form>

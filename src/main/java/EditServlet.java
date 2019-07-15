@@ -73,10 +73,16 @@ public class EditServlet extends HttpServlet implements Routable{
             }
         }else if (req.getParameter("edit_password") != null){
             String newPassword = req.getParameter("new_password");
-            try {
-                databaseService.updatePassword(newPassword,username);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            String confirmPassword = req.getParameter("confirm_password");
+            if (newPassword.compareTo(confirmPassword) != 0){
+                String error = "Password doesn't match";
+                req.setAttribute("password_error", error);
+            }else {
+                try {
+                    databaseService.updatePassword(newPassword, username);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }else if (req.getParameter("edit_first_name") != null){
             String newFirstname = req.getParameter("new_first_name");

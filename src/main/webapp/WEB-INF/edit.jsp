@@ -25,6 +25,7 @@
 </form>
 
 <form method="post">
+    <p>${password_error}</p>
     <input type="password" name="new_password"  placeholder="New password" required />
     <input type="password" name="confirm_password"  placeholder="Confirm password" required />
     <input type="submit" name="edit_password" value="edit" required/>
