@@ -64,7 +64,7 @@ public class HomeServlet extends HttpServlet implements Routable{
             String username = (String) request.getSession().getAttribute("username");
             try {
                 User user = databaseService.getUser(username);
-                request.setAttribute("user", user);
+                request.getSession().setAttribute("user", user);
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -85,6 +85,16 @@ public class HomeServlet extends HttpServlet implements Routable{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameter("add_user")!= null){
             String newUsername = req.getParameter("adding_username");
+            try {
+                if (databaseService.containUser(newUsername)){
+                    String error = "Username exist in database";
+                    req.setAttribute("adding_error", error);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                String error = e.getMessage();
+                req.setAttribute("adding_error", error);
+            }
             String newPassword = req.getParameter("adding_password");
             String confirmPassword = req.getParameter("confirm_password");
             if (newPassword.compareTo(confirmPassword) == 0) {
@@ -95,17 +105,10 @@ public class HomeServlet extends HttpServlet implements Routable{
                     e.printStackTrace();
                     String error = e.getMessage();
                     req.setAttribute("adding_error", error);
-                    RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/home.jsp");
-                    rd.include(req, resp);
                 }
             }else{
                 String error = "Password doesn't match";
                 req.setAttribute("adding_error", error);
-                try {
-                    refreshTable(req, resp);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }else if (req.getParameter("removing_user")!=null){
             String user = req.getParameter("user_to_use");
@@ -116,8 +119,6 @@ public class HomeServlet extends HttpServlet implements Routable{
                 e.printStackTrace();
                 String error = e.getMessage();
                 req.setAttribute("removing_error", error);
-                RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/home.jsp");
-                rd.include(req, resp);
             }
         }else if(req.getParameter("do_edit")!=null){
             String user = req.getParameter("user_to_use");
