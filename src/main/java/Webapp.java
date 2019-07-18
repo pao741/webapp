@@ -21,7 +21,6 @@ public class Webapp {
         SecurityService securityService = new SecurityService();
         ServletRouter servletRouter = new ServletRouter();
         servletRouter.setSecurityService(securityService);
-
         Context ctx;
         try {
             ctx = tomcat.addWebapp("", docBase.getAbsolutePath());
@@ -29,7 +28,7 @@ public class Webapp {
 
             tomcat.start();
             tomcat.getServer().await();
-        } catch (ServletException | LifecycleException ex) {
+        } catch (LifecycleException ex) {
             ex.printStackTrace();
         }
 
